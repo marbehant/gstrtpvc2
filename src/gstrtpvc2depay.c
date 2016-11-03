@@ -367,7 +367,7 @@ gst_rtp_vc2_depay_process_hq_fragment (GstRTPBaseDepayload * depayload, guint8 *
     guint32 next_parse_info_offset;
 
     outbuf = gst_buffer_new_allocate(NULL,
-                                     17,
+                                     13,
                                      NULL);
     if (!outbuf) {
       rtpvc2depay->in_picture     = FALSE;
@@ -382,7 +382,7 @@ gst_rtp_vc2_depay_process_hq_fragment (GstRTPBaseDepayload * depayload, guint8 *
       return NULL;
     }
 
-    next_parse_info_offset = rtpvc2depay->picture_size + 17;
+    next_parse_info_offset = rtpvc2depay->picture_size + 13;
 
     info.data[ 0] = 0x42;
     info.data[ 1] = 0x42;
@@ -397,10 +397,6 @@ gst_rtp_vc2_depay_process_hq_fragment (GstRTPBaseDepayload * depayload, guint8 *
     info.data[10] = (rtpvc2depay->last_parse_info_offset >> 16)&0xFF;
     info.data[11] = (rtpvc2depay->last_parse_info_offset >>  8)&0xFF;
     info.data[12] = (rtpvc2depay->last_parse_info_offset >>  0)&0xFF;
-    info.data[13] = (rtpvc2depay->picture_number >> 24)&0xFF;
-    info.data[14] = (rtpvc2depay->picture_number >> 16)&0xFF;
-    info.data[15] = (rtpvc2depay->picture_number >>  8)&0xFF;
-    info.data[16] = (rtpvc2depay->picture_number >>  0)&0xFF;
 
     gst_buffer_unmap(outbuf, &info);
 
